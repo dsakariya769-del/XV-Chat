@@ -154,40 +154,23 @@ $("#authForm").addEventListener("submit", async e => {
 
         /* Check username AFTER authentication */
 
-        const existing = await getDocs(
-          query(
-            collection(db, "users"),
-            where("username", "==", username),
-            limit(1)
-          )
-        );
-
-        if (!existing.empty) {
-
-          await deleteUser(cred.user);
-
-          throw new Error(
-            "This username is already taken."
-          );
-        }
-
         const xvId =
-          "XV-" + uid.slice(0, 8).toUpperCase();
+  "XV-" + uid.slice(0, 8).toUpperCase();
 
-        await setDoc(
-          doc(db, "users", uid),
-          {
-            username,
-            xvId,
-            email,
-            createdAt: serverTimestamp(),
-            online: true,
-            lastSeen: serverTimestamp(),
-            privacy: {
-              readReceipts: true
-            }
-          }
-        );
+await setDoc(
+  doc(db, "users", uid),
+  {
+    username,
+    xvId,
+    email,
+    createdAt: serverTimestamp(),
+    online: true,
+    lastSeen: serverTimestamp(),
+    privacy: {
+      readReceipts: true
+    }
+  }
+);
 
         /*
          * Keep local user data ready immediately.
