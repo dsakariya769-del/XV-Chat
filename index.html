@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#fff7fb" />
+  <title>XV Chat</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <section id="authView" class="auth-view">
+      <div class="auth-card">
+        <img src="assets/xv-logo.jpg" class="logo" alt="XV Chat logo">
+        <h1>XV Chat</h1>
+        <p class="subtitle">Sweet conversations. Real connections.</p>
+
+        <div id="authTabs" class="tabs">
+          <button class="tab active" data-mode="login">Login</button>
+          <button class="tab" data-mode="signup">Create account</button>
+        </div>
+
+        <form id="authForm">
+          <div id="usernameWrap" class="field hidden">
+            <label>Username</label>
+            <input id="username" autocomplete="username" placeholder="e.g. dipak" maxlength="20">
+            <small>Your public username and XV ID will be created from this.</small>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input id="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input id="password" type="password" autocomplete="current-password" placeholder="At least 6 characters" minlength="6" required>
+          </div>
+          <p id="authError" class="error"></p>
+          <button class="primary full" type="submit" id="authSubmit">Login</button>
+        </form>
+      </div>
+    </section>
+
+    <main id="mainView" class="main-view hidden">
+      <header class="topbar">
+        <div class="brand-mini"><img src="assets/xv-logo.jpg" alt=""> <b>XV Chat</b></div>
+        <div class="top-actions">
+          <button class="icon-btn" id="notificationBtn" title="Notifications">🔔</button>
+          <button class="icon-btn" id="settingsBtn" title="Settings">⚙️</button>
+        </div>
+      </header>
+
+      <section id="chatsPage" class="page active">
+        <div class="page-head">
+          <div><h2>Messages</h2><p>Stay close to your people 💜</p></div>
+          <button class="round-add" id="newChatBtn" title="New chat">＋</button>
+        </div>
+        <div class="search-wrap"><span>⌕</span><input id="chatSearch" placeholder="Search chats"></div>
+        <div id="chatList" class="chat-list"></div>
+        <div id="emptyChats" class="empty-state">
+          <div class="empty-icon">💌</div><h3>No conversations yet</h3><p>Find someone by their username or XV ID and start chatting.</p>
+        </div>
+      </section>
+
+      <section id="contactsPage" class="page">
+        <div class="page-head"><div><h2>Discover</h2><p>Find people on XV Chat</p></div></div>
+        <div class="search-wrap"><span>⌕</span><input id="userSearch" placeholder="Search username or XV ID"></div>
+        <div id="userResults" class="user-results"></div>
+      </section>
+
+      <section id="profilePage" class="page">
+        <div class="profile-card">
+          <div class="avatar big" id="profileAvatar">XV</div>
+          <h2 id="profileName">XV User</h2>
+          <p id="profileXVId" class="xvid"></p>
+          <span class="public-pill">Public profile</span>
+        </div>
+        <div class="settings-list">
+          <button id="copyXVId">📋 Copy XV ID</button>
+          <button id="logoutBtn">↪️ Logout</button>
+          <button id="deleteAccountBtn" class="danger">🗑️ Delete account</button>
+        </div>
+      </section>
+
+      <nav class="bottom-nav">
+        <button class="nav active" data-page="chatsPage"><span>💬</span>Chats</button>
+        <button class="nav" data-page="contactsPage"><span>✨</span>Discover</button>
+        <button class="nav" data-page="profilePage"><span>☺️</span>Profile</button>
+      </nav>
+    </main>
+
+    <section id="chatView" class="chat-view hidden">
+      <header class="chat-header">
+        <button class="back-btn" id="backBtn">‹</button>
+        <div class="avatar" id="chatAvatar">XV</div>
+        <div class="chat-person"><b id="chatTitle">Chat</b><small id="presenceText">Offline</small></div>
+        <button class="icon-btn" id="chatMenuBtn">⋮</button>
+      </header>
+      <div id="replyBar" class="reply-bar hidden"><div><small>Replying to</small><span id="replyText"></span></div><button id="cancelReply">×</button></div>
+      <div id="messages" class="messages"></div>
+      <div id="typingText" class="typing-text"></div>
+      <div class="composer">
+        <button id="stickerBtn" class="icon-btn">😊</button>
+        <textarea id="messageInput" rows="1" placeholder="Message..."></textarea>
+        <button id="sendBtn" class="send-btn">➤</button>
+      </div>
+      <div id="stickerPanel" class="sticker-panel hidden">
+        <button>😊</button><button>❤️</button><button>😂</button><button>🥰</button><button>✨</button><button>🌸</button><button>👍</button><button>😢</button>
+      </div>
+    </section>
+
+    <div id="modal" class="modal hidden"><div class="modal-card" id="modalContent"></div></div>
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

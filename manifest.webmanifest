@@ -1,0 +1,10 @@
+{
+  "name": "XV Chat",
+  "short_name": "XV Chat",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fff9fc",
+  "theme_color": "#fff7fb",
+  "description": "Sweet conversations. Real connections.",
+  "icons": [{"src":"assets/xv-logo.jpg","sizes":"512x512","type":"image/jpeg"}]
+}
