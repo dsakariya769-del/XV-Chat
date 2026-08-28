@@ -1,43 +1,48 @@
-name: Build Android APK
+name: Build XV-Chat APK
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "main", "master" ]
-  workflow_dispatch: 
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
 
-    - name: Setup Java
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
 
-    - name: App ko Android mein convert karein
-      run: |
-        mkdir www
-        rsync -av --exclude='www' --exclude='.git' --exclude='.github' ./ www/
-        npm init -y
-        npm install @capacitor/core @capacitor/cli @capacitor/android
-        npx cap init "XV Chat" "com.xvchat.app" --web-dir www
-        npx cap add android
-        cd android
-        chmod +x gradlew
-        ./gradlew assembleDebug
+      - name: Build APK File
+        run: |
+          mkdir www
+          rsync -av --exclude='www' --exclude='.git' --exclude='.github' ./ www/
 
-    - name: APK Download ke liye ready karein
-      uses: actions/upload-artifact@v4
-      with:
-        name: XV-Chat-APK
-        path: '**/*.apk'
+          npm init -y
+          npm install @capacitor/core@7 @capacitor/cli@7 @capacitor/android@7
+
+          npx cap init "XV-Chat" "com.xvchat.app" --web-dir www
+          npx cap add android
+
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: XV-Chat-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
